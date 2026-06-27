@@ -15,7 +15,15 @@ const app = express();
 
 app.use(bodyParser.json({ limit: "30mb" }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "https://your-frontend.vercel.app",
+    ],
+    credentials: true,
+  })
+);
 
 app.use("/api/admin", adminRoutes);
 app.use("/api/faculty", facultyRoutes);
