@@ -11,7 +11,7 @@
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.25.0",
-    "framer-motion": "^7.10.3",
+    "framer-motion": "^6.5.1",
     "jwt-decode": "^3.1.2",
     "react": "^17.0.2",
     "react-calendar": "^3.6.0",
@@ -52,6 +52,9 @@
     ]
   },
   "devDependencies": {
+    "ajv": "^8.20.0",
+    "ajv-keywords": "^5.1.0",
+    "schema-utils": "^4.3.3",
     "tailwind-scrollbar": "^1.3.1",
     "tailwindcss": "^3.0.18"
   }
