@@ -19,7 +19,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000",
-      "https://your-frontend.vercel.app",
+      "https://campus-erp-7f4v.vercel.app",
     ],
     credentials: true,
   })
