@@ -15,6 +15,7 @@ const app = express();
 
 app.use(bodyParser.json({ limit: "30mb" }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+
 app.use(
   cors({
     origin: [
@@ -25,35 +26,37 @@ app.use(
   })
 );
 
+mongoose.set("strictQuery", true);
+mongoose.set("bufferCommands", false);
+
+let isConnected = false;
+
+async function connectDB() {
+  if (isConnected) return;
+
+  try {
+    await mongoose.connect(process.env.CONNECTION_URL);
+    console.log("✅ MongoDB Connected");
+
+    isConnected = true;
+
+    await addDummyAdmin();
+  } catch (err) {
+    console.error("❌ Mongo Error:", err);
+    throw err;
+  }
+}
+
+// CONNECT FIRST
+await connectDB();
+
+// THEN register routes
 app.use("/api/admin", adminRoutes);
 app.use("/api/faculty", facultyRoutes);
 app.use("/api/student", studentRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello to College ERP API");
-});
-
-mongoose.set("strictQuery", true);
-
-let isConnected = false;
-
-const connectDB = async () => {
-  if (isConnected) return;
-
-  try {
-    await mongoose.connect(process.env.CONNECTION_URL);
-    console.log("✅ MongoDB Connected");
-    isConnected = true;
-
-    await addDummyAdmin();
-  } catch (error) {
-    console.error("Mongo Error:", error);
-  }
-};
-
-app.use(async (req, res, next) => {
-  await connectDB();
-  next();
 });
 
 export default app;
