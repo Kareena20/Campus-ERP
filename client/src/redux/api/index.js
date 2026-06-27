@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // const API = axios.create({ baseURL: process.env.REACT_APP_SERVER_URL });
-const API = axios.create({ baseURL: "https://campus-erp-iota.vercel.app/" });
+const API = axios.create({ baseURL: "https://campus-erp-iota.vercel.app" });
 
 API.interceptors.request.use((req) => {
   if (localStorage.getItem("user")) {
